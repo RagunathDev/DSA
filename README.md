@@ -1,2 +1,6 @@
 # DSA
-To Obtain All Topics from DSA
+
+#Notations --> Big O Notations on Notations.txt;        
+
+
+ 
