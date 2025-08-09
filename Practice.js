@@ -48,3 +48,80 @@ var romanNumber = "III";
 console.log(romanToInt(romanNumber)); 
 var romanNumber1 = "LVIII";
 console.log(romanToInt(romanNumber1)); 
+
+// This version adds two numbers represented as linked lists (each node contains a single digit).
+// It traverses both lists node by node, simulating digit-by-digit addition with carry, as in elementary math.
+// The main difference from the array version is that you can't reverse or join a linked list directly;
+// you must traverse node by node, handling carry and constructing the result as a new linked list.
+
+//Q:  You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.
+// You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+
+ 
+  function ListNode(val, next) {
+     this.val = (val===undefined ? 0 : val)
+     this.next = (next===undefined ? null : next)
+ }
+
+var addTwoNumbers = function(l1, l2) {
+    let dummy = new ListNode(0);
+    let current = dummy;
+    let carry = 0;
+
+    while (l1 !== null || l2 !== null || carry !== 0) {
+        let sum = carry;
+        if (l1 !== null) {
+            sum += l1.val;
+            l1 = l1.next;
+        }
+        if (l2 !== null) {
+            sum += l2.val;
+            l2 = l2.next;
+        }
+        carry = Math.floor(sum / 10);
+        current.next = new ListNode(sum % 10);
+        current = current.next;
+    }
+    return dummy.next;
+};
+
+// Helper to convert array to linked list
+function arrayToList(arr) {
+    let dummy = new ListNode(0);
+    let current = dummy;
+    for (let num of arr) {
+        current.next = new ListNode(num);
+        current = current.next;
+    }
+    console.log("dummy.next", dummy.next);
+    console.log("current", current);
+    console.log("dummy", dummy);
+    console.log("dummy.next.val", dummy.next.val);
+    console.log("current.val", current.val);
+    console.log("current.next", current.next);
+    console.log("dummy.next.next", dummy.next.next);
+  
+    
+    return dummy.next;
+}
+
+// Helper to convert linked list to array for display
+function listToArray(node) {
+    let arr = [];
+    while (node) {
+        arr.push(node.val);
+        node = node.next;
+    }
+    return arr;
+}
+
+let l1 = arrayToList([2,4,3]);
+let l2 = arrayToList([5,6,4]);
+
+console.log(listToArray(addTwoNumbers(l1, l2))); // [7,0,8]
+
+let ll1 = arrayToList([0]), ll2 = arrayToList([0]);
+console.log(listToArray(addTwoNumbers(ll1, ll2))); // [0]
+
+let lll1 = arrayToList([9,9,9,9,9,9,9]), lll2 = arrayToList([9,9,9,9]);
+console.log(listToArray(addTwoNumbers(lll1, lll2))); // [8,9,9,9,0,0,0,1]
