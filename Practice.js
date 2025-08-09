@@ -118,10 +118,10 @@ function listToArray(node) {
 let l1 = arrayToList([2,4,3]);
 let l2 = arrayToList([5,6,4]);
 
-console.log(listToArray(addTwoNumbers(l1, l2))); // [7,0,8]
+console.log(listToArray(addTwoNumbers(l1, l2))); 
 
 let ll1 = arrayToList([0]), ll2 = arrayToList([0]);
-console.log(listToArray(addTwoNumbers(ll1, ll2))); // [0]
+console.log(listToArray(addTwoNumbers(ll1, ll2))); 
 
 let lll1 = arrayToList([9,9,9,9,9,9,9]), lll2 = arrayToList([9,9,9,9]);
-console.log(listToArray(addTwoNumbers(lll1, lll2))); // [8,9,9,9,0,0,0,1]
+console.log(listToArray(addTwoNumbers(lll1, lll2))); 
