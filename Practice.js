@@ -20,14 +20,14 @@ var mergeTwoLists = function(list1, list2) {
             list2 = list2.next;
         }
         current = current.next;
-        console.table([{ currentMergedList: listToArray(dummy.next).join(',') }]);
+        // console.table([{ currentMergedList: listToArray(dummy.next).join(',') }]);
     }
 
     if (list1 !== null) {
-        console.table([{ message: "Appending remaining list1 to merged list" }]);
+        // console.table([{ message: "Appending remaining list1 to merged list" }]);
         current.next = list1;
     } else {
-        console.table([{ message: "Appending remaining list2 to merged list" }]);
+        // console.table([{ message: "Appending remaining list2 to merged list" }]);
         current.next = list2;
     }
 
