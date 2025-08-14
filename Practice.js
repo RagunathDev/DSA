@@ -66,3 +66,16 @@ function listToArray(node) {
 let list1 = arrayToList([1, 2, 4]);
 let list2 = arrayToList([1, 3, 4]);
 console.table([{ finalMergedList: listToArray(mergeTwoLists(list1, list2)) }]);
+    // explanation: The function `mergeTwoLists` merges two sorted linked lists into one sorted linked list. It uses a dummy node as the head of the merged list and iteratively compares the values
+
+
+    // to find bettter result and optimized the function, we can use a while loop to iterate through both linked lists simultaneously. We compare the values of the current nodes in both lists and append the smaller one to the merged list.
+    var isNumber = function(s) {
+    return /^[+-]?(?:\d+\.?\d*|\.\d+)(?:[eE][+-]?\d+)?$/.test(s.trim());
+};
+
+console.log(isNumber("0"));     // true
+console.log(isNumber("e"));     // false
+console.log(isNumber("."));     // false
+console.log(isNumber("3.14"));  // true
+console.log(isNumber("2e10"));  // true
