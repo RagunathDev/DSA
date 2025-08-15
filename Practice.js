@@ -70,7 +70,7 @@ console.table([{ finalMergedList: listToArray(mergeTwoLists(list1, list2)) }]);
 
 
     // to find bettter result and optimized the function, we can use a while loop to iterate through both linked lists simultaneously. We compare the values of the current nodes in both lists and append the smaller one to the merged list.
-    var isNumber = function(s) {
+var isNumber = function(s) {
     return /^[+-]?(?:\d+\.?\d*|\.\d+)(?:[eE][+-]?\d+)?$/.test(s.trim());
 };
 
@@ -79,3 +79,38 @@ console.log(isNumber("e"));     // false
 console.log(isNumber("."));     // false
 console.log(isNumber("3.14"));  // true
 console.log(isNumber("2e10"));  // true
+
+/**
+ * Find the smallest missing positive integer in an unsorted array.
+ * Time: O(n), Space: O(1) auxiliary (in-place).
+ */
+function firstMissingPositive(nums) {
+  const n = nums.length;
+
+  // 1) Place each number in its correct position (if possible)
+  for (let i = 0; i < n; i++) {
+    // Place nums[i] at correct index nums[i] - 1, if within [1..n] and not already correct
+    while (
+      nums[i] >= 1 &&
+      nums[i] <= n &&
+      nums[nums[i] - 1] !== nums[i]
+    ) {
+      // Swap nums[i] with nums[nums[i] - 1]
+      const correctIdx = nums[i] - 1;
+      [nums[i], nums[correctIdx]] = [nums[correctIdx], nums[i]];
+    }
+  }
+
+  // 2) Identify the first position where the number isn't correct
+  for (let i = 0; i < n; i++) {
+    if (nums[i] !== i + 1) {
+      return i + 1;
+    }
+  }
+
+  // If all positions are correct from 1..n, answer is n+1
+  return n + 1;
+}
+console.log(firstMissingPositive([1, 2, 0]));          // 3
+console.log(firstMissingPositive([3, 4, -1, 1]));      // 2
+console.log(firstMissingPositive([7, 8, 9, 11, 12]));  // 1
