@@ -1,0 +1,293 @@
+y<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>removeDuplicates Loop Visualizer</title>
+  <style>
+    body{font-family:Inter,ui-sans-serif,system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background:#fff7fb; color:#1f1724; padding:20px}
+    h1{margin:0 0 12px;font-size:20px}
+    .controls{display:flex;gap:8px;align-items:center;margin-bottom:12px}
+    input[type=text]{padding:8px;border-radius:6px;border:1px solid #e6a3d6;width:420px}
+    button{padding:8px 10px;border-radius:6px;border:0;background:#ff84c9;color:white;cursor:pointer}
+    button.secondary{background:#ffd6ec;color:#1f1724}
+    .row{display:flex;gap:16px}
+    .panel{background:white;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,0.06);padding:12px;flex:1}
+    .array{display:flex;gap:8px;flex-wrap:wrap;padding:12px}
+    .cell{width:90px;height:56px;border-radius:10px;background:linear-gradient(180deg,#fff,#ffdff0);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:600;position:relative}
+    .index{font-size:12px;color:#6b7280;position:absolute;top:6px;left:8px}
+    .marker{height:22px;padding:2px 6px;border-radius:6px;background:#ffb6df;color:#3a1730;font-weight:700;position:absolute;transform:translateY(-40px)}
+    .markers{position:relative;height:40px}
+    .code{font-family:monospace;background:#fff0fb;padding:12px;border-radius:8px;line-height:1.6}
+    .code .line{padding:4px 8px}
+    .code .active{background:#ffd6ec;border-radius:6px}
+    .logs{height:160px;overflow:auto;background:#fffafc;padding:8px;border-radius:8px;border:1px dashed #ffd6ec}
+    .status{margin-top:8px;font-size:14px}
+    .small{font-size:13px;color:#6b7280}
+    .footer{margin-top:12px;font-size:13px;color:#6b7280}
+    label{font-size:13px}
+    .controls-right{margin-left:auto;display:flex;gap:8px}
+  </style>
+</head>
+<body>
+  <h1>removeDuplicates() — Loop Visualizer</h1>
+  <div class="controls">
+    <label class="small">Array (comma separated):</label>
+    <input id="arrInput" type="text" value="0,0,1,1,1,2,2,3,3,4">
+    <button id="loadBtn">Load & Prepare</button>
+    <div class="controls-right">
+      <button id="stepBack">◀ Step</button>
+      <button id="playPause">▶ Play</button>
+      <button id="stepForward">Step ▶</button>
+      <button id="resetBtn" class="secondary">Reset</button>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="panel" style="flex:1.2">
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div><strong>Array state</strong><div class="small">Shows nums[] at each step</div></div>
+        <div class="small">Step: <span id="stepNum">0</span>/<span id="stepTotal">0</span></div>
+          <div style="margin-top:8px"><strong>Console Logs</strong></div>
+      <div class="logs" id="logBox"></div>
+      </div>
+
+
+      <div class="markers" id="markers">
+        <!-- markers will be positioned here -->
+      </div>
+
+
+      <div class="array" id="arrayContainer"></div>
+
+
+      <div class="status">
+        <div>i: <span id="curI">-</span> &nbsp; | &nbsp; k: <span id="curK">-</span></div>
+        <div class="small">Operation: <span id="operation">Idle</span></div>
+      </div>
+
+
+    </div>
+
+
+    <div class="panel" style="flex:0.8">
+      <div><strong>Code</strong></div>
+      <pre class="code" id="codeBlock"></pre>
+
+
+    
+    </div>
+  </div>
+
+
+  <div class="footer">Tip: press <code>Load & Prepare</code>, then use <em>Step</em> or <em>Play</em> to walk through the loop. You can edit the array and reload.</div>
+
+
+<script>
+  // The lines we want to highlight to mimic your function (for readability)
+  const codeLines = [
+    'var removeDuplicates = function(nums) {',
+    '  if (nums.length === 0) return 0;',
+    '  var k = 1; // Start with the first element',
+    '  for (var i = 1; i < nums.length; i++) {',
+    '    // compare nums[i] and nums[i - 1]','console.log("nums[i]",nums[i])','console.log("nums[i-1]",nums[i-1])',
+    '    if (nums[i] !== nums[i - 1]) {',
+    '      nums[k] = nums[i];','console.log("nums[k]",nums[k])',
+    '      k++;',
+    '    }',
+    '  }',
+    '  return k;',
+    '};'
+  ];
+
+
+  const codeBlock = document.getElementById('codeBlock');
+  codeBlock.innerHTML = codeLines.map((l,i)=>`<div class="line" data-line="${i}">${l}</div>`).join('\n');
+
+
+  const arrInput = document.getElementById('arrInput');
+  const loadBtn = document.getElementById('loadBtn');
+  const stepBack = document.getElementById('stepBack');
+  const stepForward = document.getElementById('stepForward');
+  const playPause = document.getElementById('playPause');
+  const resetBtn = document.getElementById('resetBtn');
+  const arrayContainer = document.getElementById('arrayContainer');
+  const markers = document.getElementById('markers');
+  const logBox = document.getElementById('logBox');
+  const stepNum = document.getElementById('stepNum');
+  const stepTotal = document.getElementById('stepTotal');
+  const curI = document.getElementById('curI');
+  const curK = document.getElementById('curK');
+  const operation = document.getElementById('operation');
+
+
+  let states = []; // precomputed states
+  let idx = 0;
+  let timer = null;
+
+
+  function parseArray(input){
+    if(!input) return [];
+    return input.split(',').map(s=>{
+      let t = s.trim();
+      if(t === '') return NaN;
+      let n = Number(t);
+      return isNaN(n)?t:n;
+    });
+  }
+
+
+  function prepareStates(nums){
+    states = [];
+    // initial state (before loop)
+    states.push({nums: nums.slice(), i: null, k: 1, op: 'start', line: 2, log: ['start']});
+
+
+    if(nums.length === 0){
+      states.push({nums: nums.slice(), i: null, k:0, op:'return 0', line:1, log:['nums.length === 0 -> return 0']});
+      return;
+    }
+
+
+    let k = 1;
+    // simulate for loop
+    for(let i = 1; i < nums.length; i++){
+      // before compare
+      states.push({nums: nums.slice(), i:i, k:k, op:`compare nums[${i}] and nums[${i-1}]`, line:3, log:[`i=${i} compare nums[${i}]=${nums[i]} and nums[${i-1}]=${nums[i-1]}`]});
+
+
+      if(nums[i] !== nums[i-1]){
+        states.push({nums: nums.slice(), i:i, k:k, op:`assign nums[${k}]=nums[${i}]`, line:5, log:[`nums[${i}] (${nums[i]}) !== nums[${i-1}] (${nums[i-1]}) -> assign then k++`]});
+        nums[k] = nums[i];
+        k++;
+        states.push({nums: nums.slice(), i:i, k:k, op:'after assign', line:6, log:[`after assign nums[${k-1}]=${nums[k-1]}, k=${k}`]});
+      } else {
+        states.push({nums: nums.slice(), i:i, k:k, op:'skip (equal)', line:4, log:[`nums[${i}] === nums[${i-1}] -> skip`]});
+      }
+    }
+
+
+    // final return state
+    states.push({nums: nums.slice(), i:null, k:k, op:`return ${k}`, line:9, log:[`done -> return ${k}`]});
+  }
+
+
+  function render(stepIndex){
+    const s = states[stepIndex];
+    arrayContainer.innerHTML = '';
+    markers.innerHTML = '';
+    // render array cells and index
+    s.nums.forEach((val, j)=>{
+      const cell = document.createElement('div');
+      cell.className = 'cell';
+      cell.innerHTML = `<div class="index">${j}</div><div>${val}</div>`;
+      arrayContainer.appendChild(cell);
+    });
+
+
+    // render markers for i and k (if present)
+    if(s.i !== null){
+      const iMark = document.createElement('div');
+      iMark.className = 'marker';
+      iMark.textContent = 'i → ' + s.i;
+      // position above the corresponding cell
+      positionMarker(iMark, s.i);
+      markers.appendChild(iMark);
+    }
+    if(s.k !== null){
+      const kMark = document.createElement('div');
+      kMark.className = 'marker';
+      kMark.textContent = 'k → ' + s.k;
+      positionMarker(kMark, s.k);
+      markers.appendChild(kMark);
+    }
+
+
+    // update code highlight
+    document.querySelectorAll('.code .line').forEach(el=>el.classList.remove('active'));
+    const lineIdx = s.line; // small mapping (we used simple indexes)
+    const el = document.querySelector(`.code .line[data-line='${lineIdx}']`);
+    if(el) el.classList.add('active');
+
+
+    // logs
+    logBox.innerHTML = s.log.map(l=>`<div>${l}</div>`).join('\n');
+    stepNum.textContent = stepIndex;
+    stepTotal.textContent = states.length-1;
+    curI.textContent = s.i === null? '-' : s.i;
+    curK.textContent = s.k === null? '-' : s.k;
+    operation.textContent = s.op;
+  }
+
+
+  // position marker above cell by index
+  function positionMarker(markerEl, idx){
+    const cells = Array.from(document.querySelectorAll('.cell'));
+    if(idx >= cells.length) idx = cells.length - 1;
+    const target = cells[idx];
+    if(!target) return;
+    // compute offset
+    const rect = target.getBoundingClientRect();
+    const parentRect = arrayContainer.getBoundingClientRect();
+    // We'll position using inline styles relative to markers container
+    const left = target.offsetLeft;
+    markerEl.style.left = (left) + 'px';
+  }
+
+
+  // controls
+  loadBtn.addEventListener('click', ()=>{
+    const arr = parseArray(arrInput.value);
+    prepareStates(arr.slice());
+    idx = 0;
+    render(idx);
+  });
+
+
+  stepForward.addEventListener('click', ()=>{
+    if(states.length === 0) return;
+    idx = Math.min(states.length-1, idx+1);
+    render(idx);
+  });
+  stepBack.addEventListener('click', ()=>{
+    if(states.length === 0) return;
+    idx = Math.max(0, idx-1);
+    render(idx);
+  });
+
+
+  resetBtn.addEventListener('click', ()=>{
+    if(states.length===0) return;
+    idx = 0; render(idx);
+  });
+
+
+  playPause.addEventListener('click', ()=>{
+    if(timer){
+      clearInterval(timer); timer = null; playPause.textContent = '▶ Play';
+      return;
+    }
+    playPause.textContent = '⏸ Pause';
+    timer = setInterval(()=>{
+      if(idx >= states.length-1){ clearInterval(timer); timer = null; playPause.textContent = '▶ Play'; return; }
+      idx++; render(idx);
+    }, 800);
+  });
+
+
+  // load initial
+  prepareStates(parseArray(arrInput.value));
+  render(0);
+
+
+  // keyboard support
+  window.addEventListener('keydown', (e)=>{
+    if(e.key === 'ArrowRight') stepForward.click();
+    if(e.key === 'ArrowLeft') stepBack.click();
+    if(e.key === ' ') { e.preventDefault(); playPause.click(); }
+  });
+</script>
+</body>
+</html>
+
