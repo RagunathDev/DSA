@@ -230,3 +230,34 @@ console.log(listToArray(addTwoNumbers(ll1, ll2)));
 
 let lll1 = arrayToList([9,9,9,9,9,9,9]), lll2 = arrayToList([9,9,9,9]);
 console.log(listToArray(addTwoNumbers(lll1, lll2))); 
+
+
+function findDiagonalOrder(mat) {
+  if (!mat || mat.length === 0) return [];
+
+  const m = mat.length, n = mat[0].length;
+  console.log(m, n),"3232";
+  
+  const result = [];
+  let row = 0, col = 0, direction = 1; // 1 = up, -1 = down
+
+  for (let i = 0; i < m * n; i++) {
+    console.log("mat[row][col]", mat[row][col]);
+    
+    result.push(mat[row][col]);
+console.log(  result.push(mat[row][col]),"  result.push(mat[row][col]);");
+
+  
+  }
+console.log("kjb",result);
+
+  return result;
+}
+
+// Testing
+// console.log(findDiagonalOrder([[1,2,3],[4,5,6],[7,8,9]])); 
+// [1,2,4,7,5,3,6,8,9]
+
+console.log(findDiagonalOrder([[1,2],[3,4]])); 
+// [1,2,3,4]
+
