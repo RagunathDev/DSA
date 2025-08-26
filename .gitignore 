@@ -1,0 +1,9 @@
+# Ignore all text files
+*.txt
+
+#  Ignore OS/system files
+.DS_Store
+Thumbs.db
+
+#  Ignore dependencies in > Node.js
+node_modules/
