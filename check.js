@@ -24,6 +24,7 @@
 //       }
 //    }
 // }
+
 // on this function is used to find a duplicates in one number
 function newFun(x) {
    let result = 0;
