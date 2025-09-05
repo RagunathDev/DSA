@@ -42,28 +42,44 @@
 
 // find the unique number use liner complexity and 0(n) space
 
-function singleNumber(nums) {
-  let ones = 0, twos = 0;
+// function singleNumber(nums) {
+//   let ones = 0, twos = 0;
 
-  for (let num of nums) {
-   console.log(num,"lk");
+//   for (let num of nums) {
+//    console.log(num,"lk");
    
-    ones = (ones ^ num) & ~twos;
-    console.log(ones,"---ones");
+//     ones = (ones ^ num) & ~twos;
+//     console.log(ones,"---ones");
     
-    twos = (twos ^ num) & ~ones;
-    console.log("twos", twos);
+//     twos = (twos ^ num) & ~ones;
+//     console.log("twos", twos);
 
-    console.log("ones======++", ones);
-    console.log("----------------");
+//     console.log("ones======++", ones);
+//     console.log("----------------");
     
-  }
+//   }
 
 
-  return ones;
-}
+//   return ones;
+// }
 // var xc = [2,2,3,2];
-var h = [0,1,0,1,0,8,7,8,7,1,99];
+// var h = [0,1,0,1,0,8,7,8,7,1,99];
 
-console.log(singleNumber(h));
+// console.log(singleNumber(h));
 // console.log(singleNumber(xc));
+
+// var findClosest = function(x, y, z) {
+//     let ol = 0;
+//     let oy = 0;
+//     for(i = x;  i <= z; i++){
+//       console.log(x,"-----1");
+//        ol++;
+//     };
+//     for(i = y;  i < z; i--){
+//        oy++;
+//       console.log(y,"-----1");
+//     };
+ 
+// };
+
+// console.log(findClosest( x = 2, y = 7, z = 4));
