@@ -1,17 +1,17 @@
-// function plusOne(arr) {
-//  var ch = arr.pop() +1;
-//  console.log(ch,"ch--");
+function plusOne(arr) {
+ var ch = arr.pop() +1;
+ console.log(ch,"ch--");
  
-//         arr.push(ch);
-//              for (let i = 0; i < arr.length; i++) {
-//             if(ch >= 9){
-//                 var  y =  String(arr[i]).split('').map(Number);
-//                 return y;
-//              }else{
-//                 return arr;
-//              }
-//            }
-    
+        arr.push(ch);
+             for (let i = 0; i < arr.length; i++) {
+            if(ch >= 9){
+                var  y =  String(arr[i]).split('').map(Number);
+                return y;
+             }else{
+                return arr;
+             }
+           }
+        }
 
 // add plus one inthe array
 
