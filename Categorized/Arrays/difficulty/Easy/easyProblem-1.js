@@ -37,3 +37,6 @@ console.log(plusOne(arr1));
 console.log(plusOne(arr2));
 
 
+// console.log(plusOne(arr));
+// console.log(plusOne(arr1));
+// console.log(plusOne(arr2));
