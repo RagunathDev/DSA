@@ -249,7 +249,7 @@ console.log(  result.push(mat[row][col]),"  result.push(mat[row][col]);");
 
   
   }
-console.log("kjb",result);
+
 
   return result;
 }
