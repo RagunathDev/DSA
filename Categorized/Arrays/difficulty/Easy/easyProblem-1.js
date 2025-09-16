@@ -30,8 +30,8 @@ var plusOne = function(digits) {
 };
 
 var arr = [1,2,3];
-var arr1 = [4,3,2,1];
-var arr2 = [9];
+// var arr1 = [4,3,2,1];
+// var arr2 = [9];
 console.log(plusOne(arr));
 
 
