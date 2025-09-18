@@ -36,5 +36,5 @@ console.log(plusOne(arr));
 
 
 // sep-18
-// Arreys => "functions"
 
+// sep-19
