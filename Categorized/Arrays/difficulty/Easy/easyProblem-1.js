@@ -35,6 +35,4 @@ var arr = [1,2,3];
 console.log(plusOne(arr));
 
 
-// sep-18
-
 
