@@ -29,17 +29,19 @@ function isPalindromeNumber(xs) {
 var testNumber = isPalindromeNumber(9889);
 console.log(testNumber); // true
 
-// Fiboniacci Series   
+// Fiboniacci Series make it clear
 function fib() {
     const arr = [0,1];
     var element = null;
+    var ty = 20;
     for (let i = 1; i < arr.length; i++) {
      element = arr[i] + arr[i];
      }
   arr.push(element)
-  console.log(arr);
-  
+  console.log(arr,"---jk");
 }
+
+
 
 fib();
 
