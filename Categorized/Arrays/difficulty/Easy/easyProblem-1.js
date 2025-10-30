@@ -100,12 +100,6 @@ console.log(sortBy(arr = [5, 4, 1, 2, 3], fn = (x) => x
 
 console.log(sortBy(arr = [{"x": 1}, {"x": 0}, {"x": -1}], fn = (d) => d.x), "---------------opop--2");
 console.log(sortBy(arr = [[3, 4], [5, 2], [10, 1]], fn = (x) => x[1]), "---------------opop--3");
-// const points = [40, 100, 1, 5, 25, 10];
-// function newFun(points) {
-//   // return points.sort((j)=>(j))
-//  return points.sort((i,u)=>(i-u));
-// }
-// console.log(newFun(points));
 
 function generateParenthesis(n) {
   const result = [];
@@ -132,7 +126,7 @@ function generateParenthesis(n) {
   return result;
 }
 
-// Example usage:
+
 console.log(generateParenthesis(3));
 // Output: ["((()))", "(()())", "(())()", "()(())", "()()()"]
 
