@@ -106,3 +106,36 @@ console.log(sortBy(arr = [[3, 4], [5, 2], [10, 1]], fn = (x) => x[1]), "--------
 //  return points.sort((i,u)=>(i-u));
 // }
 // console.log(newFun(points));
+
+function generateParenthesis(n) {
+  const result = [];
+
+  function backtrack(current, open, close) {
+    // If the current string is complete
+    if (current.length === 2 * n) {
+      result.push(current);
+      return;
+    }
+
+    // Add an open parenthesis if we still have some left
+    if (open < n) {
+      backtrack(current + "(", open + 1, close);
+    }
+
+    // Add a closing parenthesis if it doesn’t exceed the number of open ones
+    if (close < open) {
+      backtrack(current + ")", open, close + 1);
+    }
+  }
+
+  backtrack("", 0, 0);
+  return result;
+}
+
+// Example usage:
+console.log(generateParenthesis(3));
+// Output: ["((()))", "(()())", "(())()", "()(())", "()()()"]
+
+console.log(generateParenthesis(1));
+// Output: ["()"]
+
