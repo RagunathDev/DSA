@@ -133,3 +133,17 @@ console.log(generateParenthesis(3));
 console.log(generateParenthesis(1));
 // Output: ["()"]
 
+// Input: haystack = "sadbutsad", needle = "sad"
+// Output: 0
+// Explanation: "sad" occurs at index 0 and 6.
+// The first occurrence is at index 0, so we return 0.
+var  haystack = "sadbutsad"
+var  needle = "sad"
+function haystackfn(haystack, needle){
+haystack.forEach(element => {
+  console.log(element,"---element----");
+   
+});
+}
+
+console.log(haystackfn(haystack, needle),"====haystackfn(haystack, needle)");
