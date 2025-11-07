@@ -145,14 +145,14 @@ console.log(generateParenthesis(1));
      
 //      return result;
 // }
-//   const start = performance.now();
+  const start = performance.now();
 
-//     const log = (...argsArr) => {
-//           const diff = Math.floor(performance.now() - start);
-//     };
-//     const args = [4], t = 35, cancelTimeMs = 190;
-//     const cancel = cancellable(log, args, t);
-//     setTimeout(cancel, cancelTimeMs);
+    const log = (...argsArr) => {
+          const diff = Math.floor(performance.now() - start);
+    };
+    const args = [4], t = 35, cancelTimeMs = 190;
+    const cancel = cancellable(log, args, t);
+    setTimeout(cancel, cancelTimeMs);
 
 function xy(o) {
   var ik = [];
