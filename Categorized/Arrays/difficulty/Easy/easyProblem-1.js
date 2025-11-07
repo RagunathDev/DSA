@@ -137,13 +137,30 @@ console.log(generateParenthesis(1));
 // Output: 0
 // Explanation: "sad" occurs at index 0 and 6.
 // The first occurrence is at index 0, so we return 0.
-var  haystack = "sadbutsad"
-var  needle = "sad"
-function haystackfn(haystack, needle){
-haystack.forEach(element => {
-  console.log(element,"---element----");
-   
-});
-}
 
-console.log(haystackfn(haystack, needle),"====haystackfn(haystack, needle)");
+// var cancellable = function(log, args, t) {
+//      const result = [];
+//      result.push({"time": log, "returned": fn(... args)});
+//      console.log(result,"oiooooo", t);
+     
+//      return result;
+// }
+//   const start = performance.now();
+
+//     const log = (...argsArr) => {
+//           const diff = Math.floor(performance.now() - start);
+//     };
+//     const args = [4], t = 35, cancelTimeMs = 190;
+//     const cancel = cancellable(log, args, t);
+//     setTimeout(cancel, cancelTimeMs);
+
+function xy(o) {
+  var ik = [];
+  setTimeout(()=>{
+console.log({
+  'timer':t ,"returned": 8});
+  },35000)
+};
+
+ const args = [4], t = 35
+  xy(args, t)
