@@ -162,5 +162,3 @@ console.log({
   },35000)
 };
 
- const args = [4], t = 35
-  xy(args, t)
