@@ -145,7 +145,9 @@ console.log(generateParenthesis(1));
      
 //      return result;
 // }
-  const start = performance.now();
+
+function xy(o) {
+    const start = performance.now();
 
     const log = (...argsArr) => {
           const diff = Math.floor(performance.now() - start);
@@ -154,7 +156,6 @@ console.log(generateParenthesis(1));
     const cancel = cancellable(log, args, t);
     setTimeout(cancel, cancelTimeMs);
 
-function xy(o) {
   var ik = [];
   setTimeout(()=>{
 console.log({
