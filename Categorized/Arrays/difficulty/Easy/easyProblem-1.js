@@ -149,12 +149,6 @@ console.log(generateParenthesis(1));
 function xy(o) {
     const start = performance.now();
 
-    const log = (...argsArr) => {
-          const diff = Math.floor(performance.now() - start);
-    };
-    const args = [4], t = 35, cancelTimeMs = 190;
-    const cancel = cancellable(log, args, t);
-    setTimeout(cancel, cancelTimeMs);
-
+   
 };
 
