@@ -156,10 +156,5 @@ function xy(o) {
     const cancel = cancellable(log, args, t);
     setTimeout(cancel, cancelTimeMs);
 
-  var ik = [];
-  setTimeout(()=>{
-console.log({
-  'timer':t ,"returned": 8});
-  },35000)
 };
 
