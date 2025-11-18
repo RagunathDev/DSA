@@ -146,9 +146,17 @@ console.log(generateParenthesis(1));
 //      return result;
 // }
 
-function xy(o) {
-    const start = performance.now();
-
-   
+var longestPalindrome = function(s) {
+  const lp = [];
+    for(i = 0; i < s.length; i++){
+      console.log(lp.push(s[i]),"opo");
+        if(s[0] === s[i]){
+            lp.push(s[i]);
+                return lp;
+        }
+     }
 };
+var s = "babad";
+// Output: "bab"
+console.log(longestPalindrome(s),"--12334");
 
