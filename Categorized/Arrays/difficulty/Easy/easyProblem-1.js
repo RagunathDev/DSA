@@ -160,3 +160,18 @@ var s = "babad";
 // Output: "bab"
 console.log(longestPalindrome(s),"--12334");
 
+function makeCounter() {
+  let count = 1;           // outer variable
+
+  return function () {     // inner function (closure)
+    count = count + 1;
+    return count;
+  };
+}
+
+const counter = makeCounter();
+console.log("--p",counter());
+console.log(counter())
+
+
+
