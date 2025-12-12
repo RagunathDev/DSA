@@ -1,38 +1,38 @@
-// function plusOne(arr) {
-//  var ch = arr.pop() +1;
-//  console.log(ch,"ch--");
+function plusOne(arr) {
+ var ch = arr.pop() +1;
+ console.log(ch,"ch--");
  
-//         arr.push(ch);
-//              for (let i = 0; i < arr.length; i++) {
-//             if(ch >= 9){
-//                 var  y =  String(arr[i]).split('').map(Number);
-//                 return y;
-//              }else{
-//                 return arr;
-//              }
-//            }
-//         }
+        arr.push(ch);
+             for (let i = 0; i < arr.length; i++) {
+            if(ch >= 9){
+                var  y =  String(arr[i]).split('').map(Number);
+                return y;
+             }else{
+                return arr;
+             }
+           }
+        }
 
 
 
-// var plusOne = function(digits) {
-//     for (let i = digits.length - 1; i >= 0; i--) {
-//         if (digits[i] < 9) {
-//             digits[i]++;   
-//             return digits;
-//         }
-//         digits[i] = 0; 
-//     }
+var plusOne = function(digits) {
+    for (let i = digits.length - 1; i >= 0; i--) {
+        if (digits[i] < 9) {
+            digits[i]++;   
+            return digits;
+        }
+        digits[i] = 0; 
+    }
     
-//    digits.unshift(1)
+   digits.unshift(1)
     
-//     return digits;
-// };
+    return digits;
+};
 
-// var arr = [1,2,3];
-// // var arr1 = [4,3,2,1];
-// // var arr2 = [9];
-// console.log(plusOne(arr));
+var arr = [1,2,3];
+// var arr1 = [4,3,2,1];
+// var arr2 = [9];
+console.log(plusOne(arr));
 
 
 
@@ -131,20 +131,15 @@ console.log(generateParenthesis(3));
 // Output: ["((()))", "(()())", "(())()", "()(())", "()()()"]
 
 console.log(generateParenthesis(1));
-// Output: ["()"]
 
-// Input: haystack = "sadbutsad", needle = "sad"
-// Output: 0
-// Explanation: "sad" occurs at index 0 and 6.
-// The first occurrence is at index 0, so we return 0.
 
-// var cancellable = function(log, args, t) {
-//      const result = [];
-//      result.push({"time": log, "returned": fn(... args)});
-//      console.log(result,"oiooooo", t);
+var cancellable = function(log, args, t) {
+     const result = [];
+     result.push({"time": log, "returned": fn(... args)});
+     console.log(result,"oiooooo", t);
      
-//      return result;
-// }
+     return result;
+}
 
 var longestPalindrome = function(s) {
   const lp = [];
@@ -156,8 +151,7 @@ var longestPalindrome = function(s) {
         }
      }
 };
-var s = "babad";
-// Output: "bab"
+
 console.log(longestPalindrome(s),"--12334");
 
 function makeCounter() {
@@ -175,3 +169,19 @@ console.log(counter())
 
 
 
+function reverse(x) {
+  let sign = x < 0 ? -1 : 1;
+  let y = Math.abs(x).toString().split('').reverse().join('');
+  let rev = sign * Number(y);
+
+  // 32-bit range check
+  if (rev < -(2 ** 31) || rev > (2 ** 31 - 1)) {
+    return 0;
+  }
+
+  return rev;
+}
+
+console.log(reverse(-123));  // -321
+console.log(reverse(123));   // 321
+console.log(reverse(1534236469)); // 0 (overflow)
