@@ -185,3 +185,56 @@ function reverse(x) {
 console.log(reverse(-123));  // -321
 console.log(reverse(123));   // 321
 console.log(reverse(1534236469));
+
+
+function validateCoupons(code, businessLine, isActive) {
+  const validBusinessLines = [
+    "electronics",
+    "grocery",
+    "pharmacy",
+    "restaurant"
+  ];
+
+  const businessPriority = new Map(
+    validBusinessLines.map((b, i) => [b, i])
+  );
+
+  const codeRegex = /^[a-zA-Z0-9_]+$/;
+  const validCoupons = [];
+
+  for (let i = 0; i < code.length; i++) {
+    if (
+      isActive[i] === true &&
+      code[i].length > 0 &&
+      codeRegex.test(code[i]) &&
+      businessPriority.has(businessLine[i])
+    ) {
+      validCoupons.push({
+        code: code[i],
+        businessLine: businessLine[i]
+      });
+    }
+  }
+
+  validCoupons.sort((a, b) => {
+    const priorityDiff =
+      businessPriority.get(a.businessLine) -
+      businessPriority.get(b.businessLine);
+
+    if (priorityDiff !== 0) {
+      return priorityDiff;
+    }
+
+    // STRICT ASCII lexicographical comparison
+    if (a.code < b.code) return -1;
+    if (a.code > b.code) return 1;
+    return 0;
+  });
+
+  return validCoupons.map(c => c.code);
+}
+validateCoupons(
+  ["MI","b_"],
+  ["pharmacy","pharmacy"],
+  [true,true]
+);
