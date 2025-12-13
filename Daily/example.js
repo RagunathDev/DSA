@@ -22,4 +22,15 @@
 // var nums = [0,0,1,1,1,2,2,3,3,4];
 // var newLength = removeDuplicates(nums);
 // console.log(newLength); 
+function fib(n) {
+    let a = 0, b = 1;
+    for (let i = 0; i < n; i++) {
+        console.log(a);
+        let next = a + b;
+        a = b;
+        b = next;
+    }
+}
 
+const n = 6;
+fib(n);
