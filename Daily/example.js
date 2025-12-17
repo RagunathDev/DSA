@@ -30,7 +30,7 @@ function fib(n) {
         a = b;
         b = next;
     }
-}
+};
 
 const n = 6;
 fib(n);
