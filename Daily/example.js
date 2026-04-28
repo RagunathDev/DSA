@@ -22,6 +22,7 @@ console.log("nums[i]",nums[i]);
 var nums = [0,0,1,1,1,2,2,3,3,4];
 var newLength = removeDuplicates(nums);
 console.log(newLength); 
+
 function fib(n) {
     let a = 0, b = 1;
     for (let i = 0; i < n; i++) {
