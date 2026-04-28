@@ -185,14 +185,3 @@ return function (y) {
 // }
 
 // demo(1, 2, 3, 4, 5);
-foo();
-
-
-
-var foo = function() {
-  console.log("244");
-};
-
-function foo() {
-  console.log("133");
-}
