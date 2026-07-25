@@ -185,3 +185,30 @@ return function (y) {
 // }
 
 // demo(1, 2, 3, 4, 5);
+
+
+const person1 = {
+    name: "Ragunath"
+};
+
+const person2 = {
+    name: "John"
+};
+
+const person = {
+    name: "Apply"
+};
+
+function greet(city, country) {
+    console.log(`Hi I'm ${this.name} from ${city}, ${country}`);
+}
+
+greet.call(person1, "Chennai", "India");
+greet.call(person2, "New York", "USA");
+
+
+
+greet.apply(person, ["Chennai-apply", "India"]);
+
+const newFun = greet.bind(person);
+newFun("Chennai-Bind", "India")
